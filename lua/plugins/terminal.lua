@@ -4,7 +4,8 @@ return {
 		config = function()
 			require("toggleterm").setup({
 				size = 20, -- Set the height of the terminal window in lines
-				open_mapping = [[<leader>t]], -- Key mapping to toggle the terminal, set to Space + t
+				open_mapping = [[<leader>t]], -- Key mapping to toggle the terminal, set to <leader> + t
+				insert_mappings = false, -- Insert mode key mappings
 				autochdir = true,
 				hide_numbers = true, -- Hide the number column in toggleterm buffers
 				shade_terminals = true, -- Shade the terminal window to differentiate it from other windows
