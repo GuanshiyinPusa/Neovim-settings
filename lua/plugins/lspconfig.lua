@@ -17,7 +17,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "clangd" },
+                ensure_installed = { "lua_ls", "clangd", "pyright" },
             })
         end,
     },
@@ -34,7 +34,13 @@ return {
                 cmd = {
                     "clangd",
                     "--fallback-style=LLVM",
+                    "--clang-tidy",
+                    "--clang-tidy-checks=-*, cppcoreguidelines-*",
+                    "--completion-style=detailed",
                 },
+            })
+            lspconfig.pyright.setup({
+                capabilities = capabilities,
             })
         end,
     },

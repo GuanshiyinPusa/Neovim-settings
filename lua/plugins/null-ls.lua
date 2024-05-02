@@ -3,7 +3,7 @@ return {
         "jay-babu/mason-null-ls.nvim",
         config = function()
             require("mason-null-ls").setup({
-                ensure_installed = { "clang-format", "stylua" },
+                ensure_installed = { "clang-format", "stylua", "black" },
                 automatic_installation = true,
                 handlers = {},
             })
@@ -19,6 +19,7 @@ return {
                 sources = {
                     null_ls.builtins.formatting.clang_format,
                     null_ls.builtins.formatting.stylua,
+                    null_ls.builtins.formatting.black,
                 },
                 on_attach = function(client, bufnr)
                     if client.supports_method("textDocument/formatting") then

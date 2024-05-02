@@ -1,16 +1,10 @@
--- open file_browser with the path of the current buffer
-vim.api.nvim_set_keymap(
-    "n",
-    "<space>fb",
-    ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-    { noremap = true }
-)
-
 -- Telescope
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<space>ff", builtin.find_files, {})
 vim.keymap.set("n", "<space>fg", builtin.live_grep, {})
-
+vim.keymap.set("n", "<space>fb", function()
+	require("telescope").extensions.file_browser.file_browser()
+end)
 -- Neotree
 vim.keymap.set("n", "<space>n", ":Neotree toggle<CR>", { noremap = true, silent = true })
 
@@ -28,23 +22,28 @@ vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, {})
 
 -- Formatter
 vim.keymap.set("n", "<space>fa", function()
-    vim.lsp.buf.format({ async = true })
+	vim.lsp.buf.format({ async = true })
 end, { silent = true })
 
 -- DAP
 -- Set a breakpoint with <leader>db
 vim.keymap.set("n", "<space>db", function()
-    require("dap").toggle_breakpoint()
+	require("dap").toggle_breakpoint()
 end)
 
 -- Start or continue debugging with <leader>dr
 vim.keymap.set("n", "<space>dc", function()
-    require("dap").continue()
+	require("dap").continue()
 end)
 
 -- End session
+vim.keymap.set("n", "<space>dd", function()
+	require("dap").disconnect()
+end)
+
+-- Close DapUI windows
 vim.keymap.set("n", "<space>de", function()
-    require("dap").terminate()
+	require("dapui").close()
 end)
 
 -- Git
@@ -59,23 +58,17 @@ local api = require("Comment.api")
 local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
 -- Toggle selection (linewise)
 vim.keymap.set("x", "<C-_>", function()
-    vim.api.nvim_feedkeys(esc, "nx", false)
-    api.toggle.linewise(vim.fn.visualmode())
+	vim.api.nvim_feedkeys(esc, "nx", false)
+	api.toggle.linewise(vim.fn.visualmode())
 end)
 
 -- Toggle selection (blockwise)
 vim.keymap.set("x", "<C-\\>", function()
-    vim.api.nvim_feedkeys(esc, "nx", false)
-    api.toggle.blockwise(vim.fn.visualmode())
+	vim.api.nvim_feedkeys(esc, "nx", false)
+	api.toggle.blockwise(vim.fn.visualmode())
 end)
 
--- Trouble
-vim.keymap.set("n", "<leader>xx", function()
-    require("trouble").toggle()
-end)
-vim.keymap.set("n", "<leader>xw", function()
-    require("trouble").toggle("workspace_diagnostics")
-end)
-vim.keymap.set("n", "<leader>xd", function()
-    require("trouble").toggle("document_diagnostics")
+-- ZenMode
+vim.keymap.set("n", "<space>z", function()
+	require("zen-mode").toggle()
 end)

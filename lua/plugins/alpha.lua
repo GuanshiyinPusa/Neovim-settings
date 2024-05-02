@@ -209,7 +209,7 @@ return {
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠙⠛⠛⠋⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠺⢿⣶⣝⡿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
             },
         }
-        dashboard.section.header.val = ascii_art_list[5]
+        dashboard.section.header.val = ascii_art_list[1]
         alpha.setup(dashboard.opts)
     end,
 }
