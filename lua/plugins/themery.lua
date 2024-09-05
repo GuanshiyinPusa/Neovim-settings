@@ -32,9 +32,8 @@ return {
                 "rose-pine-dawn",
                 "rose-pine-main",
                 "rose-pine-moon",
-            },                                       -- Your list of installed colorschemes
-            themeConfigFile = "~/.config/nvim/lua/theme.lua", -- Described below
-            livePreview = true,                      -- Apply theme while browsing. Default to true.
+            },         -- Your list of installed colorschemes
+            livePreview = true, -- Apply theme while browsing. Default to true.
         })
     end,
 }

@@ -1,6 +1,7 @@
 return {
     {
         "jay-babu/mason-nvim-dap.nvim",
+        lazy = true,
         opts = {
             handlers = {},
             ensure_installed = { "codelldb", "cpptools" },
@@ -8,6 +9,7 @@ return {
     },
     {
         "rcarriga/nvim-dap-ui",
+        lazy = true,
         dependencies = { "nvim-neotest/nvim-nio" },
         config = function()
             local dap = require("dap")
@@ -26,6 +28,7 @@ return {
     },
     {
         "mfussenegger/nvim-dap",
+        lazy = true,
         config = function()
             local dap = require("dap")
 
@@ -98,12 +101,14 @@ return {
     },
     {
         "theHamsta/nvim-dap-virtual-text",
+        lazy = true,
         config = function()
             require("nvim-dap-virtual-text").setup({})
         end,
     },
     {
         "nvim-telescope/telescope-dap.nvim",
+        lazy = true,
         requires = { "nvim-telescope/telescope.nvim" },
     },
 }
