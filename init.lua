@@ -18,9 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 -- Initialize Lazy.nvim
 require("lazy").setup("plugins")
 
--- Setup Colorscheme
-require("theme")
-
 -- Autocmd
 require("autocmd")
 

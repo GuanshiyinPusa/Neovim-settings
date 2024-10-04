@@ -50,3 +50,6 @@ vim.opt.foldmethod = "indent" -- Folding method based on indentation
 vim.opt.spell = false -- Disable spell checking
 vim.opt.spelllang = "en" -- Set the default spell checking language
 vim.o.showmatch = true -- Highlighting matching brackets
+
+vim.opt.spelllang = "en_us"
+vim.opt.spell = true
