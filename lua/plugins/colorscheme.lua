@@ -1,5 +1,7 @@
 return {
-    {
-        "folke/tokyonight.nvim",
-    },
+	{
+		"folke/tokyonight.nvim",
+		lazy = true,
+		priority = 1000,
+	},
 }

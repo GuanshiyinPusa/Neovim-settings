@@ -1,6 +1,6 @@
 require("options")
 
-vim.o.background = "" -- Unset background
+vim.o.background = nil -- Unset background
 -- Lazy.nvim Config
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

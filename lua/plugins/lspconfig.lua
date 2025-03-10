@@ -1,6 +1,7 @@
 return {
 	{
 		"williamboman/mason.nvim",
+		event = "VeryLazy",
 		config = function()
 			require("mason").setup({
 				ui = {
@@ -15,14 +16,16 @@ return {
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
+		after = "mason.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "clangd" },
+				ensure_installed = {},
 			})
 		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
+		event = "VeryLazy",
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
@@ -30,7 +33,7 @@ return {
 				capabilities = capabilities,
 			})
 			lspconfig.clangd.setup({
-				cmd = { "clangd", "--background-index", "--clang-tidy" },
+				cmd = { "clangd", "--offset-encoding=utf-16", "--background-index", "--clang-tidy" },
 				capabilities = capabilities,
 			})
 		end,
