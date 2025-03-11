@@ -4,6 +4,7 @@ return {
 	},
 	{
 		"nvim-telescope/telescope-file-browser.nvim",
+		event = "BufWinEnter",
 		config = function()
 			require("telescope").setup({
 				defaults = {
@@ -17,12 +18,18 @@ return {
 						},
 					},
 				},
+				pickers = {
+					colorscheme = {
+						enable_preview = true,
+					},
+				},
 			})
 			require("telescope").load_extension("file_browser")
 		end,
 	},
 	{
 		"nvim-telescope/telescope-ui-select.nvim",
+		cmd = "Telescope",
 		config = function()
 			-- This is your opts table
 			require("telescope").setup({

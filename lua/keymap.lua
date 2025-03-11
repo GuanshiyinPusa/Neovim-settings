@@ -53,20 +53,5 @@ end, { desc = "Toggle Zen Mode" })
 -- LazyGit
 vim.keymap.set("n", "<space>g", "<cmd>LazyGit<cr>", opts, { desc = "Open LazyGit" })
 
--- Copilot
-vim.keymap.set(
-	"n",
-	"<space>cp",
-	function()
-		vim.g.copilot_enabled = not vim.g.copilot_enabled
-		if vim.g.copilot_enabled then
-			print("Copilot enabled")
-		else
-			print("Copilot disabled")
-		end
-	end,
-	opts,
-	{
-		desc = "Toggle Copilot",
-	}
-)
+-- Terminal
+vim.api.nvim_set_keymap("n", "<Space>t", ":ToggleTerm direction=float<CR>", opts)

@@ -6,14 +6,6 @@ return {
 			options = {
 				theme = "auto",
 			},
-			sections = {
-				lualine_y = {
-					{
-						"datetime",
-						style = "%m-%d %H:%M:%S",
-					},
-				},
-			},
 		})
 	end,
 }

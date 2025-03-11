@@ -1,6 +1,5 @@
 require("options")
 
-vim.o.background = nil -- Unset background
 -- Lazy.nvim Config
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -17,6 +16,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 -- Initialize Lazy.nvim
 require("lazy").setup("plugins")
-
+vim.cmd.colorscheme("tokyonight")
 -- Keymap
 require("keymap")
