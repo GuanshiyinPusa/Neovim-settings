@@ -45,11 +45,6 @@ vim.keymap.set("n", "<space>l", function()
 	require("lint").try_lint()
 end, { desc = "Trigger linting for current file" })
 
--- ZenMode
-vim.keymap.set("n", "<space>z", function()
-	require("zen-mode").toggle()
-end, { desc = "Toggle Zen Mode" })
-
 -- LazyGit
 vim.keymap.set("n", "<space>g", "<cmd>LazyGit<cr>", opts, { desc = "Open LazyGit" })
 
@@ -70,3 +65,6 @@ vim.keymap.set(
 		desc = "Toggle Copilot",
 	}
 )
+
+-- Terminal
+vim.api.nvim_set_keymap("n", "<Space>t", ":ToggleTerm direction=float<CR>", opts)
