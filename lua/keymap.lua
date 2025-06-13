@@ -11,7 +11,7 @@ local function map(mode, lhs, rhs, description)
 end
 
 -- Basic editor mappings
-map("n", "p", ":put<CR>")
+-- map("n", "p", ":put<CR>")
 map("n", ";", ":", "CMD enter command mode") -- Added semicolon mapping
 map("i", "jk", "<ESC>") -- Added jk escape mapping
 
@@ -59,9 +59,6 @@ end, "Current buffer diagnostics")
 map("n", "<space>n", ":Neotree toggle float<CR>", "Toggle Neotree filesystem")
 -- map("n", "<space>s", ":Neotree toggle git_status float<CR>", "Toggle Neotree git-status")
 
--- Neogen
-map("n", "<Leader>cc", ":lua require('neogen').generate()<CR>")
-
 -- LSP mappings
 local lsp_mappings = {
     { "n", "<F2>", vim.lsp.buf.hover, "Hover Information" },
@@ -101,6 +98,3 @@ end, "Toggle Zen Mode")
 
 -- LazyGit
 map("n", "<space>lg", "<cmd>LazyGit<cr>", "Open LazyGit")
-
--- Terminal
-map("n", "<Space>te", ":ToggleTerm direction=float<CR>")

@@ -1,7 +1,7 @@
 return {
     {
-        "williamboman/mason.nvim",
-        event = "VeryLazy", -- Keep lazy loading
+        "mason-org/mason.nvim",
+        -- event = "VeryLazy",
         config = function()
             require("mason").setup {
                 ui = {
@@ -11,15 +11,16 @@ return {
                         package_uninstalled = "✗",
                     },
                 },
-                PATH = "prepend", -- Important for path management
+                PATH = "prepend",
             }
         end,
     },
     {
-        "williamboman/mason-lspconfig.nvim",
-        event = "VeryLazy", -- Keep lazy loading
+        "mason-org/mason-lspconfig.nvim",
+        -- event = "VeryLazy",
+        lazy = false,
         dependencies = {
-            "williamboman/mason.nvim", -- Ensures mason loads first
+            "mason-org/mason.nvim",
         },
         config = function()
             require("mason-lspconfig").setup {
@@ -30,32 +31,24 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-        event = "BufReadPre", -- This triggers when you open a file
+        -- event = "BufReadPre",
+        lazy = false,
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
-            "williamboman/mason.nvim", -- Ensures mason loads before lspconfig
-            "williamboman/mason-lspconfig.nvim", -- Ensures mason-lspconfig loads before lspconfig
+            "mason-org/mason.nvim",
+            "mason-org/mason-lspconfig.nvim",
         },
         config = function()
-            -- First ensure mason is initialized
-            require "mason"
-            -- Then ensure mason-lspconfig is initialized
-            require "mason-lspconfig"
-
-            -- Now set up LSP
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            local lspconfig = require "lspconfig"
-            -- 配置服务器
+            -- Enable LSP servers using Neovim 0.11+ API
             local servers = { "html", "cssls", "pyright", "jdtls" }
-            for _, lsp in ipairs(servers) do
-                lspconfig[lsp].setup {
-                    capabilities = capabilities,
-                }
+            for _, server in ipairs(servers) do
+                vim.lsp.enable(server)
             end
-            lspconfig.clangd.setup {
+
+            -- Special configuration for clangd
+            vim.lsp.enable("clangd", {
                 cmd = { "clangd", "--offset-encoding=utf-16", "--background-index", "--clang-tidy" },
-                capabilities = capabilities,
-            }
+            })
         end,
     },
 }

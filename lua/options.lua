@@ -1,11 +1,11 @@
 -- Clipboard and Completion Menu
 vim.opt.clipboard = "unnamedplus" -- Use system clipboard for copy/paste
 vim.opt.completeopt = {
-	"menu", -- Show the popup menu when multiple completions are available
-	"menuone", -- Automatically select the first completion item when it's the only one
-	"noselect", -- Do not automatically select an item from the menu, allow manual selection
-	"noinsert", -- Do not automatically insert the selected completion, allow manual insertion
-	"preview", -- Show preview of the selected completion in a separate popup
+    "menu", -- Show the popup menu when multiple completions are available
+    "menuone", -- Automatically select the first completion item when it's the only one
+    "noselect", -- Do not automatically select an item from the menu, allow manual selection
+    "noinsert", -- Do not automatically insert the selected completion, allow manual insertion
+    "preview", -- Show preview of the selected completion in a separate popup
 }
 
 -- Mouse and Tab Settings
