@@ -11,9 +11,8 @@ local function map(mode, lhs, rhs, description)
 end
 
 -- Basic editor mappings
--- map("n", "p", ":put<CR>")
-map("n", ";", ":", "CMD enter command mode") -- Added semicolon mapping
-map("i", "jk", "<ESC>") -- Added jk escape mapping
+map("n", ";", ":", "CMD enter command mode")
+map("i", "jk", "<ESC>", "Exit insert mode")
 
 -- Telescope mappings
 local builtin = require "telescope.builtin"
@@ -57,7 +56,6 @@ end, "Current buffer diagnostics")
 
 -- Neotree
 map("n", "<space>n", ":Neotree toggle float<CR>", "Toggle Neotree filesystem")
--- map("n", "<space>s", ":Neotree toggle git_status float<CR>", "Toggle Neotree git-status")
 
 -- LSP mappings
 local lsp_mappings = {
@@ -78,23 +76,36 @@ for _, mapping in ipairs(lsp_mappings) do
     vim.keymap.set(mode, mapping[2], mapping[3], { desc = mapping[4] })
 end
 
--- Formatter
-map({ "n", "v" }, "fa", function()
+-- Formatting (updated for conform.nvim)
+map({ "n", "v" }, "<leader>mp", function()
     require("conform").format {
-        lsp_fallback = true,
+        lsp_format = "fallback",
         async = false,
+        timeout_ms = 500,
     }
 end, "Format file or range")
 
--- Linter
--- map("n", "<space>l", function()
---     require("lint").try_lint()
--- end, "Trigger linting for current file")
+-- Alternative format keymap (keeping your original 'fa' if you prefer)
+map({ "n", "v" }, "fa", function()
+    require("conform").format {
+        lsp_format = "fallback",
+        async = false,
+        timeout_ms = 500,
+    }
+end, "Format file or range")
 
--- ZenMode
-map("n", "<space>z", function()
-    require("zen-mode").toggle()
-end, "Toggle Zen Mode")
+-- Linting
+map("n", "<space>l", function()
+    require("lint").try_lint()
+end, "Trigger linting for current file")
 
 -- LazyGit
 map("n", "<space>lg", "<cmd>LazyGit<cr>", "Open LazyGit")
+
+-- Diagnostic navigation
+map("n", "[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
+map("n", "]d", vim.diagnostic.goto_next, "Go to next diagnostic")
+
+-- Quick fix list navigation
+map("n", "[q", ":cprev<CR>", "Previous quickfix item")
+map("n", "]q", ":cnext<CR>", "Next quickfix item")
