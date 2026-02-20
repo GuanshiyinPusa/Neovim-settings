@@ -28,86 +28,87 @@ return {
             require("mason-lspconfig").setup {
                 ensure_installed = { "pyright", "html", "cssls", "jdtls", "clangd", "lua_ls" },
                 automatic_installation = true,
-                -- automatic_enable is true by default, so servers are auto-enabled
-                handlers = {
-                    -- Default handler for all servers
-                    function(server_name)
-                        require("lspconfig")[server_name].setup {
-                            capabilities = capabilities,
-                        }
-                    end,
+            }
 
-                    -- Custom configurations for specific servers
-                    ["lua_ls"] = function()
-                        require("lspconfig").lua_ls.setup {
-                            capabilities = capabilities,
-                            settings = {
-                                Lua = {
-                                    runtime = {
-                                        version = "LuaJIT",
-                                        path = vim.split(package.path, ";"),
+            -- Use setup_handlers (mason-lspconfig API) to configure servers.
+            require("mason-lspconfig").setup_handlers({
+                -- Default handler for all servers
+                function(server_name)
+                    require("lspconfig")[server_name].setup {
+                        capabilities = capabilities,
+                    }
+                end,
+
+                -- Custom configurations for specific servers
+                ["lua_ls"] = function()
+                    require("lspconfig").lua_ls.setup {
+                        capabilities = capabilities,
+                        settings = {
+                            Lua = {
+                                runtime = {
+                                    version = "LuaJIT",
+                                    path = vim.split(package.path, ";"),
+                                },
+                                workspace = {
+                                    checkThirdParty = false,
+                                    library = {
+                                        vim.env.VIMRUNTIME,
+                                        vim.fn.stdpath "config",
+                                        "${3rd}/luv/library",
+                                        "${3rd}/busted/library",
                                     },
-                                    workspace = {
-                                        checkThirdParty = false,
-                                        library = {
-                                            vim.env.VIMRUNTIME,
-                                            vim.fn.stdpath "config",
-                                            "${3rd}/luv/library",
-                                            "${3rd}/busted/library",
-                                        },
-                                        maxPreload = 100000,
-                                        preloadFileSize = 10000,
+                                    maxPreload = 100000,
+                                    preloadFileSize = 10000,
+                                },
+                                completion = {
+                                    callSnippet = "Replace",
+                                    keywordSnippet = "Replace",
+                                },
+                                diagnostics = {
+                                    globals = {
+                                        "vim",
+                                        "describe",
+                                        "it",
+                                        "before_each",
+                                        "after_each",
                                     },
-                                    completion = {
-                                        callSnippet = "Replace",
-                                        keywordSnippet = "Replace",
-                                    },
-                                    diagnostics = {
-                                        globals = {
-                                            "vim",
-                                            "describe",
-                                            "it",
-                                            "before_each",
-                                            "after_each",
-                                        },
-                                        disable = { "missing-fields" },
-                                    },
-                                    hint = {
-                                        enable = true,
-                                        arrayIndex = "Disable",
-                                        await = true,
-                                        paramName = "Disable",
-                                        paramType = true,
-                                        semicolon = "Disable",
-                                        setType = false,
-                                    },
-                                    format = {
-                                        enable = false, -- Use stylua instead
-                                    },
-                                    telemetry = {
-                                        enable = false,
-                                    },
+                                    disable = { "missing-fields" },
+                                },
+                                hint = {
+                                    enable = true,
+                                    arrayIndex = "Disable",
+                                    await = true,
+                                    paramName = "Disable",
+                                    paramType = true,
+                                    semicolon = "Disable",
+                                    setType = false,
+                                },
+                                format = {
+                                    enable = false, -- Use stylua instead
+                                },
+                                telemetry = {
+                                    enable = false,
                                 },
                             },
-                        }
-                    end,
+                        },
+                    }
+                end,
 
-                    ["clangd"] = function()
-                        require("lspconfig").clangd.setup {
-                            capabilities = capabilities,
-                            cmd = {
-                                "clangd",
-                                "--offset-encoding=utf-16",
-                                "--background-index",
-                                "--clang-tidy",
-                                "--header-insertion=iwyu",
-                                "--completion-style=detailed",
-                                "--function-arg-placeholders",
-                            },
-                        }
-                    end,
-                },
-            }
+                ["clangd"] = function()
+                    require("lspconfig").clangd.setup {
+                        capabilities = capabilities,
+                        cmd = {
+                            "clangd",
+                            "--offset-encoding=utf-16",
+                            "--background-index",
+                            "--clang-tidy",
+                            "--header-insertion=iwyu",
+                            "--completion-style=detailed",
+                            "--function-arg-placeholders",
+                        },
+                    }
+                end,
+            })
         end,
     },
     {
