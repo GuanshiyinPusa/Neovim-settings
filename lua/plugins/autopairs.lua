@@ -1,6 +1,9 @@
 return {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
+    dependencies = {
+        "saghen/blink.cmp", -- For seamless integration
+    },
     opts = {
         fast_wrap = {},
         disable_filetype = { "TelescopePrompt", "vim" },
@@ -25,7 +28,6 @@ return {
 
         -- Enhanced rules for better bracket handling
         local Rule = require "nvim-autopairs.rule"
-        local ts_conds = require "nvim-autopairs.ts-conds"
 
         -- Add spaces in brackets for specific languages
         autopairs.add_rules {
@@ -78,8 +80,8 @@ return {
             Rule("'''", "'''", "python"),
         }
 
-        -- NOTE: No blink.cmp integration needed
-        -- blink.cmp handles function brackets via its auto_brackets feature
+        -- NOTE: blink.cmp handles function brackets via its auto_brackets feature
         -- autopairs handles general quote/bracket pairs and language-specific rules
+        -- They work together seamlessly
     end,
 }

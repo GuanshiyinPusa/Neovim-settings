@@ -1,21 +1,49 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    event = "VeryLazy",
-    config = function()
-        require("nvim-treesitter.configs").setup {
-            -- A list of parser names, or "all"
-            ensure_installed = { "c", "cpp", "lua", "python" },
+	"nvim-treesitter/nvim-treesitter",
+	version = false,
+	build = ":TSUpdate",
+	lazy = false,
+	config = function()
+		require("nvim-treesitter").setup({
+			install_dir = vim.fn.stdpath("data") .. "/site",
+		})
 
-            -- Install parsers synchronously (only applies to `ensure_installed`)
-            sync_install = false,
+		require("nvim-treesitter")
+			.install({
+				"c",
+				"cpp",
+				"lua",
+				"python",
+				"yaml",
+				"bash",
+				"markdown",
+				"markdown_inline",
+				"rust",
+				"html",
+				"css",
+				"vim",
+				"vimdoc",
+				"query",
+			})
+			:wait(300000)
 
-            -- Automatically install missing parsers when entering buffer
-            -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-            auto_install = true,
-
-            highlight = {
-                enable = true, -- Enables treesitter-based syntax highlighting
-            },
-        }
-    end,
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = {
+				"c",
+				"cpp",
+				"lua",
+				"python",
+				"yaml",
+				"bash",
+				"markdown",
+				"rust",
+				"html",
+				"css",
+				"vim",
+			},
+			callback = function()
+				vim.treesitter.start()
+			end,
+		})
+	end,
 }
