@@ -33,7 +33,7 @@ vim.opt.smartcase = true -- Use case-sensitive search if uppercase is entered
 -- Basic and Visual Options
 vim.opt.colorcolumn = "80" -- Highlight column 80
 vim.opt.textwidth = 80 -- Automatically break lines at 80 characters
-vim.opt.wrap = true -- Disable line wrapping
+vim.opt.wrap = true -- Enable line wrapping
 vim.opt.linebreak = true -- Don't break words on wrap
 vim.opt.showbreak = "↪ " -- Symbol to show when a line is wrapped
 vim.opt.cindent = true -- Enable C-specific indentation
@@ -49,4 +49,3 @@ vim.opt.foldmethod = "indent" -- Folding method based on indentation
 -- Spell Checking
 vim.opt.spell = false -- Disable spell checking
 vim.opt.spelllang = "en_us" -- Set the default spell checking language
-vim.o.showmatch = true -- Highlighting matching brackets

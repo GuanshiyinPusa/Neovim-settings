@@ -51,17 +51,6 @@ map("n", "<leader>gl", function()
     require("lint").try_lint()
 end, "Trigger linting")
 
--- Treesitter incremental selection
-map("n", "<C-space>", function()
-    require("nvim-treesitter.incremental_selection").init_selection_repeatable()
-end, "Initialize treesitter selection")
-map("n", "<C-s>", function()
-    require("nvim-treesitter.incremental_selection").scope_incremental()
-end, "Scope incremental selection")
-map("n", "<C-BS>", function()
-    require("nvim-treesitter.incremental_selection").node_decremental()
-end, "Node decremental selection")
-
 
 -- Telescope mappings
 local builtin = require "telescope.builtin"
