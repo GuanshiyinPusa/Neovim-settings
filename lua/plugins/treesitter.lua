@@ -1,49 +1,45 @@
-return {
-	"nvim-treesitter/nvim-treesitter",
-	version = false,
-	build = ":TSUpdate",
-	lazy = false,
-	config = function()
-		require("nvim-treesitter").setup({
-			install_dir = vim.fn.stdpath("data") .. "/site",
-		})
+-- =============================================================================
+-- Treesitter — syntax highlighting, indentation, text objects
+-- =============================================================================
+-- NOTE: nvim-treesitter was rewritten for 0.12 (main branch).
+-- The old require("nvim-treesitter.configs").setup{} API no longer exists.
+-- =============================================================================
 
-		require("nvim-treesitter")
-			.install({
-				"c",
-				"cpp",
-				"lua",
-				"python",
-				"yaml",
-				"bash",
-				"markdown",
-				"markdown_inline",
-				"rust",
-				"html",
-				"css",
-				"vim",
-				"vimdoc",
-				"query",
-			})
-			:wait(300000)
+local treesitter = require("nvim-treesitter")
+treesitter.setup()
 
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = {
-				"c",
-				"cpp",
-				"lua",
-				"python",
-				"yaml",
-				"bash",
-				"markdown",
-				"rust",
-				"html",
-				"css",
-				"vim",
-			},
-			callback = function()
-				vim.treesitter.start()
-			end,
-		})
+-- Install parsers
+treesitter.install({
+	"lua",
+	"c",
+	"cpp",
+	"python",
+	"vim",
+	"vimdoc",
+	"query",
+	"bash",
+	"markdown",
+	"markdown_inline",
+	"json",
+	"yaml",
+	"toml",
+	"ini",
+})
+
+-- Enable treesitter highlighting and indentation per filetype
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("user_treesitter", { clear = true }),
+	callback = function(args)
+		local lang = vim.treesitter.language.get_lang(args.match)
+		if lang and vim.treesitter.language.add(lang) then
+			vim.treesitter.start()
+			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		end
 	end,
-}
+})
+
+-- Treesitter context (shows current function/class at top of buffer)
+require("treesitter-context").setup({
+	max_lines = 3,
+	multiline_threshold = 1,
+})
