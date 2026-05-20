@@ -28,10 +28,18 @@ return {
 			"help",
 		},
 
-		-- Leave Up/Down arrows alone in insert mode if you ever use them
+		-- ThinkPad X1 Carbon physical keys — don't train against these
 		disabled_keys = {
-			-- ["<Up>"] = false,
-			-- ["<Down>"] = false,
+			["<Up>"]    = {},
+			["<Down>"]  = {},
+			["<Left>"]  = {},
+			["<Right>"] = {},
+			["<Home>"]  = {},
+			["<End>"]   = {},
+			["<PageUp>"]   = {},
+			["<PageDown>"] = {},
+			["<Insert>"] = {},
+			["<Del>"]    = {},
 		},
 	},
 }
